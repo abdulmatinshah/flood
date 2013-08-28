@@ -1,0 +1,15 @@
+<% provide(:page_title, @user.name) %>
+<p id="notice"><%= notice %></p>
+<%= link_to gravatar_for(@user, 100), user_path(@user) %>
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

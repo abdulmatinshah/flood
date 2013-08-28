@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @damage.name %>
+</p>
+
+<p>
+  <strong>Father name:</strong>
+  <%= @damage.father_name %>
+</p>
+
+<p>
+  <strong>Cnic:</strong>
+  <%= @damage.CNIC %>
+</p>
+
+<p>
+  <strong>Family:</strong>
+  <%= @damage.family %>
+</p>
+
+<p>
+  <strong>Village:</strong>
+  <%= @damage.village %>
+</p>
+
+<p>
+  <strong>Tehsil:</strong>
+  <%= @damage.tehsil %>
+</p>
+
+<%= link_to 'Edit', edit_damage_path(@damage) %> |
+<%= link_to 'Back', damages_path %>

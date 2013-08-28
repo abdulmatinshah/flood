@@ -1,0 +1,37 @@
+<h1>Listing damages</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Father name</th>
+      <th>Cnic</th>
+      <th>Family</th>
+      <th>Village</th>
+      <th>Tehsil</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @damages.each do |damage| %>
+      <tr>
+        <td><%= damage.name %></td>
+        <td><%= damage.father_name %></td>
+        <td><%= damage.CNIC %></td>
+        <td><%= damage.family %></td>
+        <td><%= damage.village %></td>
+        <td><%= damage.tehsil %></td>
+        <td><%= link_to 'Show', damage %></td>
+        <td><%= link_to 'Edit', edit_damage_path(damage) %></td>
+        <td><%= link_to 'Destroy', damage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Damage', new_damage_path %>
