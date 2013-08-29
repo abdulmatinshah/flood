@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   before_save { |user| user.email = user.email.downcase }
+  before_save :create_remember_token
   # before_save :remeber_token
   has_secure_password #this adds password to this class
 
@@ -25,4 +26,7 @@ class User < ActiveRecord::Base
 # def remeber_token
 #   self.remeber_token = Random
 # end
+def create_remember_token
+  self.remember_token = SecureRandom.urlsafe_base64
+end
 end

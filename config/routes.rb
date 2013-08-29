@@ -3,13 +3,17 @@ Flood::Application.routes.draw do
 
 
   resources :users
-
+  resources :sessions, only: [:new, :create, :destroy]
   resources :damages
 
-  get 'signup', to: "users#new"
-  get 'contact', to: "static_pages#contact"
-  get 'about', to: "static_pages#about"
-  get 'help', to: "static_pages#help"
+  get 'signin',     to: "sessions#new"
+  # post 'sessions',  to: "sessions#create"
+  delete 'signout',  to: "sessions#destroy", via: :delete
+
+  get 'signup',   to: "users#new"
+  get 'contact',  to: "static_pages#contact"
+  get 'about',    to: "static_pages#about"
+  get 'help',     to: "static_pages#help"
   
 
   root to: "static_pages#home"
