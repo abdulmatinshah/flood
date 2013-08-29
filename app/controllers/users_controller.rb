@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user, only: [:index, :edit, :update]
+  before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: :delete
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page])
   end
 
   # GET /users/1
@@ -28,6 +31,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        sign_in @user
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render action: 'show', status: :created, location: @user }
       else
@@ -42,7 +46,8 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        sign_in @user
+        format.html { redirect_to @user, notice: 'Profile was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -70,5 +75,20 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+  def authorize_user
+    unless signed_in?
+      store_location
+      redirect_to signin_path, notice: "Please sign in to proceed ahead!" 
+    end
+  end
+
+    def correct_user
+      redirect_to root_path unless current_user?(@user)
+    end
+    def admin_user
+      redirect_to root_path unless current_user.admin?
+
     end
 end
